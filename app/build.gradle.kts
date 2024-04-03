@@ -50,12 +50,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     buildFeatures {
@@ -86,11 +87,29 @@ dependencies {
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
 
+
+    //Retrofit
+    implementation(libs.retrofit)
+
+    //Hilt
+implementation(libs.dagger.hiltAndroid)
+ kapt(libs.dagger.hiltCompiler)
+
     // Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.material)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.toolingPreview)
+
+    //Testing
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.android)
+    testImplementation(libs.arch.core)
+    testImplementation(libs.coroutines.test)
+
+
+
 
     implementation(libs.nitrozenAndroid)
 

@@ -7,11 +7,17 @@ versionName = "1.0"
 
 android = "8.1.0"
 kotlin = "1.8.0"
-coroutine = "1.7.1"
+coroutine = "1.7.3"
+coroutineTest = "1.6.1"
 ktor = "2.3.1"
 kotest = "5.6.2"
 mockk = "1.13.5"
+retrofit = "2.11.0"
 sqlDelight = "1.5.4"
+junit = "4.12"
+mockitoKotlin = '4.0.0'
+mockitoAndroid = '4.3.1'
+archTesting = '2.1.0'
 turbine = "1.0.0"
 navigation = "2.6.0"
 composeBom = "2023.06.01"
@@ -34,6 +40,7 @@ sqlDelight = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
 # Coroutines
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutine" }
+coroutines-test ={module = "org.jetbrains.kotlinx:kotlinx-coroutines-test",version.ref="coroutineTest"}
 
 # Ktor
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -53,6 +60,14 @@ kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest"
 # Mockk
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
+
+#Mockito
+mockito-kotlin ={module = "org.mockito.kotlin:mockito-kotlin",version.ref="mockitoKotlin"}
+mockito-android = {module = "org.mockito:mockito-android",version.ref = "mockitoAndroid"}
+arch-core ={module = "androidx.arch.core:core-testing",version.ref = "archTesting"}
+
+#Junit
+junit = {module = "junit:junit",version.ref="junit"}
 
 # SqlDelight
 sqlDelight-androidDriver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
@@ -85,6 +100,9 @@ androidX-appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1
 androidX-constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 androidX-lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version = "2.6.1" }
 androidX-workRuntime = { module = "androidx.work:work-runtime-ktx", version = "2.8.1"}
+
+# Retrofit
+retrofit = {module = "com.squareup.retrofit2:retrofit", version.ref="retrofit"}
 
 # Nitrozen
 nitrozenAndroid = { module = "com.github.gofynd:nitrozen-android", version = "1.1.0"}
