@@ -1,7 +1,7 @@
 [versions]
-compileSdk = "33"
+compileSdk = "34"
 minSdk = "24"
-targetSdk = "33"
+targetSdk = "34"
 versionCode = "1"
 versionName = "1.0"
 
@@ -10,6 +10,7 @@ kotlin = "1.8.0"
 coroutine = "1.7.3"
 coroutineTest = "1.6.1"
 ktor = "2.3.1"
+camerax = "1.2.2"
 kotest = "5.6.2"
 mockk = "1.13.5"
 retrofit = "2.11.0"
@@ -117,4 +118,16 @@ nitrozenAndroid = { module = "com.github.gofynd:nitrozen-android", version = "1.
 
 #material
 material ={module = "com.google.android.material:material",version = "1.11.0"}
+
+#MLKIT
+mlkit-recognition ={module= "com.google.android.gms:play-services-mlkit-text-recognition", version= "19.0.0"}
+mlkit ={module= "com.google.mlkit:text-recognition", version= "16.0.0"}
+
+#CameraX
+camera-core ={module = "androidx.camera:camera-core",version.ref="camerax"}
+camera-camera2 ={module = "androidx.camera:camera-core",version.ref="camerax"}
+camera-lifecycle ={module = "androidx.camera:camera-lifecycle",version.ref="camerax"}
+camera-video ={module = "androidx.camera:camera-core",version.ref="camerax"}
+camera-view ={module = "androidx.camera:camera-view",version.ref="camerax"}
+camera-extensions ={module = "androidx.camera:camera-extensions",version.ref="camerax"}
 

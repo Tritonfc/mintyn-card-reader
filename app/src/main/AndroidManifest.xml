@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterApp"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.CameraScannerActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.CardInfoActivity"
             android:exported="false" />

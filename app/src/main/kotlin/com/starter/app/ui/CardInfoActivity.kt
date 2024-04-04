@@ -57,7 +57,7 @@ class CardInfoActivity : AppCompatActivity() {
                             cardInfoActivityBinding.loadingGroup.visibility = View.GONE
                             Toast.makeText(
                                 this@CardInfoActivity,
-                                cardState.exception.message,
+                                "Invalid Card or response",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
