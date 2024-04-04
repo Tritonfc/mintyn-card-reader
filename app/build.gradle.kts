@@ -79,21 +79,30 @@ dependencies {
 
     // AndroidX
     implementation(libs.androidX.coreKtx)
+    implementation(libs.androidX.activity)
     implementation(libs.androidX.appCompat)
     implementation(libs.androidX.constraintLayout)
     implementation(libs.androidX.lifecycle.viewModel)
+    implementation(libs.androidX.lifecycle.runtime)
+    implementation(libs.androidX.lifecycle.livedata)
+    implementation(libs.material)
 
     // Coroutine
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+    //
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
 
     //Retrofit
-    implementation(libs.retrofit)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter)
 
     //Hilt
 implementation(libs.dagger.hiltAndroid)
- kapt(libs.dagger.hiltCompiler)
+    testImplementation("junit:junit:4.12")
+    kapt(libs.dagger.hiltCompiler)
 
     // Compose
     implementation(platform(libs.compose.bom))
@@ -107,6 +116,9 @@ implementation(libs.dagger.hiltAndroid)
     testImplementation(libs.mockito.android)
     testImplementation(libs.arch.core)
     testImplementation(libs.coroutines.test)
+
+    //Gson
+    implementation(libs.gson)
 
 
 
