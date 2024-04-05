@@ -120,7 +120,8 @@ implementation(libs.dagger.hiltAndroid)
     //Testing
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
-    testImplementation(libs.mockito.android)
+    testImplementation(libs.mockito.core)
+//    testImplementation(libs.mockito.android)
     testImplementation(libs.arch.core)
     testImplementation(libs.coroutines.test)
 
