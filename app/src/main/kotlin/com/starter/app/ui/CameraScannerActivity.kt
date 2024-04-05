@@ -1,24 +1,32 @@
 package com.starter.app.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.starter.app.MainActivity
-import com.starter.app.R
 import com.starter.app.databinding.ActivityCameraScannerBinding
-import com.starter.app.databinding.ActivityCardInfoBinding
+
 
 class CameraScannerActivity : AppCompatActivity() {
     private lateinit var  cameraScannerBinding:ActivityCameraScannerBinding
+    private var imageCapture: ImageCapture? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cameraScannerBinding = ActivityCameraScannerBinding.inflate(layoutInflater)
@@ -30,6 +38,24 @@ class CameraScannerActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
+
+        cameraScannerBinding.imageCaptureButton.setOnClickListener {
+            takePhoto()
+        }
+    }
+
+    private fun takePhoto(){
+        val imageCapture = imageCapture ?: return
+        imageCapture.takePicture(
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageCapturedCallback(){
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    super.onCaptureSuccess(image)
+                    runTextRecognition(image)
+                    Toast.makeText(this@CameraScannerActivity,"Scanning Please wait...",Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
     }
 
     private fun startCamera() {
@@ -41,6 +67,8 @@ class CameraScannerActivity : AppCompatActivity() {
                 .also {
                     it.setSurfaceProvider(cameraScannerBinding.viewFinder.surfaceProvider)
                 }
+
+            imageCapture = ImageCapture.Builder().build()
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             try {
@@ -49,14 +77,82 @@ class CameraScannerActivity : AppCompatActivity() {
 
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview)
+                    this, cameraSelector, preview,imageCapture)
 
             } catch(exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
         }, ContextCompat.getMainExecutor(this))
 
+
+
+
     }
+
+
+    //Text recognition funtion using MLKIT
+
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun runTextRecognition(imageProxy:ImageProxy) {
+        val image = imageProxy.image?.let { InputImage.fromMediaImage(it, imageProxy.imageInfo.rotationDegrees) }
+        val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+        if (image != null) {
+            recognizer.process(image)
+                .addOnSuccessListener { texts ->
+
+                    processTextRecognitionResult(texts)
+                }
+                .addOnFailureListener { e -> // Task failed with an exception
+                    Toast.makeText(this,"Error detecting image, Please try again",Toast.LENGTH_SHORT).show()
+                    e.printStackTrace()
+                }
+        }
+    }
+
+    private fun processTextRecognitionResult(texts: Text){
+        val sb = StringBuilder()
+        val blocks = texts.textBlocks
+        if(blocks.isEmpty()){
+            Toast.makeText(this, "Unable to Extract Card Information",Toast.LENGTH_SHORT).show()
+        }
+
+        for(i in 0 until blocks.size){
+            val lines = blocks[i].lines
+            for (j in 0 until  lines.size){
+                val elements = lines[j].elements
+                for(k in 0 until  elements.size){
+                    val value = elements[k].text
+
+                    if(isCardNumber(value) && sb.length<6){
+                        sb.append(value)
+                    }
+
+                }
+
+            }
+        }
+
+        if(sb.length >=6){
+            val intent = Intent(this@CameraScannerActivity, CardInfoActivity::class.java)
+            intent.putExtra(MainActivity.BUNDLE_KEY, sb.toString())
+            startActivity(intent)
+        }else{
+            Toast.makeText(this, "Unable to Extract Card Information",Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+
+
+    //Regex function to only select card number after scanning card
+    private fun isCardNumber(text:String):Boolean{
+        val regex = "-?\\d+(\\.\\d+)?"
+
+
+        return text.matches(regex.toRegex())
+    }
+
 
     private fun requestPermissions() {
         activityResultLauncher.launch(CameraScannerActivity.REQUIRED_PERMISSIONS)
