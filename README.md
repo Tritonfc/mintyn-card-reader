@@ -4,7 +4,7 @@ This project mimics a card reader application designed to extract card informati
 
 ## Repo
 
-- I used a starter template which automatically comes with basic dependencies in a config file to speed up dev process. So there would be lots of unused library dependencies. The starter template can be found here: https://github.com/dhavalshah05/starter_android
+- I used a starter template which automatically comes with basic dependencies in a config file(libs.versions.toml) to speed up dev process. So there would be lots of unused library dependencies. The starter template can be found here: https://github.com/dhavalshah05/starter_android
 - The project follows clean architecture practices with MVVM.
 - Retrofit is used for API calls, CameraX for Scanning and MLKIT for text Recognition.
 - Unit tests have been included.
