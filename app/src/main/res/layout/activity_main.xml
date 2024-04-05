@@ -59,6 +59,7 @@
         android:id="@+id/group_scan_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         app:constraint_referenced_ids="camera_image,number_scan" />
 
     <ImageView
@@ -67,7 +68,7 @@
 
 
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toStartOf="@+id/number_scan"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="64dp"
         android:text="Scan your card Number"
         android:textSize="20sp"
         android:textStyle="bold"
